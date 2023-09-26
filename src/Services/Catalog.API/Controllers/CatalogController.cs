@@ -37,6 +37,39 @@ namespace Catalog.API.Controllers
             
         }
 
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<Product>), (int)HttpStatusCode.OK)]
+        public IActionResult GetbyId(string id)
+        {
+            try
+            {
+                var product = _productManager.GetById(id);
+                return CustomResult("Data Loaded Successfully", product);
+            }
+            catch (Exception ex)
+            {
+                return CustomResult(ex.Message, HttpStatusCode.BadRequest);
+            }
+
+        }
+
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<Product>), (int)HttpStatusCode.OK)]
+        [ResponseCache(Duration = 10)]
+        public IActionResult GetByCategory(string category)
+        {
+            try
+            {
+                var products = _productManager.GetByCategory(category);
+                return CustomResult("Data Loaded Successfully", products);
+            }
+            catch (Exception ex)
+            {
+                return CustomResult(ex.Message, HttpStatusCode.BadRequest);
+            }
+
+        }
+
         [HttpPost]
         [ProducesResponseType(typeof(Product), (int)HttpStatusCode.Created)]
         public IActionResult CreateProduct([FromBody] Product product)
@@ -64,7 +97,7 @@ namespace Catalog.API.Controllers
             {
                 if (string.IsNullOrEmpty(product.Id))
                 {
-                    return CustomResult("Data Not Found..",HttpStatusCode.NotFound);
+                    return CustomResult("Data Not Found..", HttpStatusCode.NotFound);
                 }
                 bool isUpdated = _productManager.Update(product.Id, product);
                 if (isUpdated)
