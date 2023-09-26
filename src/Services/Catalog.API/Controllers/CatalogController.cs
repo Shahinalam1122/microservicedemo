@@ -10,7 +10,7 @@ namespace Catalog.API.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class CatalogController : BaseController // replace ControllerBase
+    public class CatalogController : BaseController // replace ControllerBase to BaseController
     {
         IProductManager _productManager;
         public CatalogController(IProductManager productManager)
