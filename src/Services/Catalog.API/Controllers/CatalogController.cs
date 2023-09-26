@@ -19,6 +19,7 @@ namespace Catalog.API.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Product>),(int)HttpStatusCode.OK)]
+        [ResponseCache(Duration =10)] // response cache implement for server free only for get method
         public IActionResult GetProducts() 
         {
             // Error exception handling implements
