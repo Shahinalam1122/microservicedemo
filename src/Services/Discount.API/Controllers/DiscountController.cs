@@ -43,7 +43,7 @@ namespace Discount.API.Controllers
                 {
                     return CustomResult("Coupon has been saved successfully...",coupon);
                 }
-                return CustomResult("Coupon Saved Failed..",coupon);
+                return CustomResult("Coupon Saved Failed..",coupon, HttpStatusCode.BadRequest);
 
             }
             catch (Exception ex)
@@ -63,7 +63,7 @@ namespace Discount.API.Controllers
                 {
                     return CustomResult("Coupon has been Updated successfully...", coupon);
                 }
-                return CustomResult("Coupon Update Failed..", coupon);
+                return CustomResult("Coupon Update Failed..", coupon, HttpStatusCode.BadRequest);
 
             }
             catch (Exception ex)
