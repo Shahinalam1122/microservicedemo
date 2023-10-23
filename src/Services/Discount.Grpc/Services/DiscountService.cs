@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Discount.Grpc.Models;
 using Discount.Grpc.Protos;
 using Discount.Grpc.Repository;
 using Grpc.Core;
@@ -27,6 +28,53 @@ namespace Discount.Grpc.Services
             _logger.LogInformation("Discount is retrive for ProductName: {productName},Amount: {amount}", coupon.ProductName, coupon.Amount);
             //return new CouponRequest { ProductId = request.ProductId,ProductName=coupon.ProductName,Description=coupon.Description,Amount=coupon.Amount};
             return _mapper.Map<CouponRequest>(coupon);
+        }
+
+        public override async Task<CouponRequest> CreateDiscount(CouponRequest request, ServerCallContext context)
+        {
+            var coupon = _mapper.Map<Coupon>(request);
+            bool isSaved = await _couponRepository.CreateDiscount(coupon);
+            if(isSaved)
+            {
+                _logger.LogInformation("Discount is successfully created.. ProductName:{ProductNamt}", coupon.ProductName);
+            }
+            else
+            {
+                _logger.LogInformation("Discount created failed.");
+            }
+            
+            return _mapper.Map<CouponRequest>(coupon);
+        }
+
+        public override async Task<CouponRequest> UpdateDiscount(CouponRequest request, ServerCallContext context)
+        {
+            var coupon= _mapper.Map<Coupon>(request);
+            bool isUpdated= await _couponRepository.UpdateDiscount(coupon);
+            if (isUpdated)
+            {
+                _logger.LogInformation("Discount is successfully updated.. ProductName:{ProductName}", coupon.ProductName);
+            }
+            else
+            {
+                _logger.LogInformation("Discount update failed..");
+            }
+
+            return _mapper.Map<CouponRequest>(coupon);
+        }
+
+        public override async Task<DeleteDiscountResponse> DeleteDiscount(DeleteDiscountRequest request, ServerCallContext context)
+        {
+            bool isDeleted = await _couponRepository.DeleteDiscount(request.ProductId);
+            if (isDeleted)
+            {
+                _logger.LogInformation("Discount has been deleted successfully.. ProductId:{ProductName}",request.ProductId);
+            }
+            else
+            {
+                _logger.LogInformation("Discount delete failed..");
+            }
+
+            return new DeleteDiscountResponse() { Success=isDeleted};
         }
     }
 }
