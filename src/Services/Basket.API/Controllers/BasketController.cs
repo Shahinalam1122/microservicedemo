@@ -38,6 +38,8 @@ namespace Basket.API.Controllers
         {
             try
             {
+                //TODO: Communicate discount.grpc
+                //calculate latest price
                 return CustomResult("Basket Modified done", await _basketRepository.UpdateBasket(basket));
 
             }catch (Exception ex)
