@@ -36,7 +36,7 @@ namespace Basket.API.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(ShoppingCartItem),(int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ShoppingCart),(int)HttpStatusCode.OK)]
         public async Task<IActionResult> UpdateBasket([FromBody] ShoppingCart basket)
         {
             try

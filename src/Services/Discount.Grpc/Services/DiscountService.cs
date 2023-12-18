@@ -23,7 +23,7 @@ namespace Discount.Grpc.Services
             var coupon = await _couponRepository.GetDiscount(request.ProductId);
             if (coupon == null)
             {
-                throw new RpcException(new Status(StatusCode.NotFound,"Discount nof found"));
+                throw new RpcException(new Status(StatusCode.NotFound,"Discount not found"));
             }
             _logger.LogInformation("Discount is retrive for ProductName: {productName},Amount: {amount}", coupon.ProductName, coupon.Amount);
             //return new CouponRequest { ProductId = request.ProductId,ProductName=coupon.ProductName,Description=coupon.Description,Amount=coupon.Amount};
