@@ -20,6 +20,7 @@ namespace Ordering.API.Controllers
         {
             _mediator = mediator;
         }
+        
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<OrderVm>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetOrderByUserName(string userName)
