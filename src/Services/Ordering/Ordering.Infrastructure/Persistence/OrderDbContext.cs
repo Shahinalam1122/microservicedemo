@@ -15,6 +15,7 @@ namespace Ordering.Infrastructure.Persistence
             
         }
 
+        //seed method call
         protected override async void OnModelCreating(ModelBuilder modelBuilder)
         {
             await OrderContextSeed.Seed(modelBuilder);
