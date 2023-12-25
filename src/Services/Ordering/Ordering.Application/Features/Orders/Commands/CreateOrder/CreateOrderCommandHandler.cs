@@ -32,7 +32,7 @@ namespace Ordering.Application.Features.Orders.Commands.CreateOrder
             bool isOrderPlace=await _orderRepository.AddAsync(order);
             if (isOrderPlace)
             {
-                Email email = new Email();
+                EmailMessage email = new EmailMessage();
                 email.Subject = "Your Order has been placed..";
                 email.To = order.UserName;
                 email.Body = $"Dear {order.FirstName + " " + order.LastName} <br/><br/> We are excited for you to received your order ${order.Id} and with notify you one it's way. <br/> Thank for ordering from Programming Palli.";
