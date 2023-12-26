@@ -28,6 +28,9 @@ namespace Ordering.Application.Features.Orders.Commands.CreateOrder
             var order=_mapper.Map<Order>(request);
             //return await _orderRepository.AddAsync(order);
 
+            order.CreatedBy = "1";
+            order.CreatedDate=DateTime.Now;
+
             // sending email
             bool isOrderPlace=await _orderRepository.AddAsync(order);
             if (isOrderPlace)
